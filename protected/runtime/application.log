@@ -18,3 +18,54 @@ REQUEST_URI=/site/login
 in /var/www/cp/docs/protected/components/UserIdentity.php (14)
 in /var/www/cp/docs/protected/models/LoginForm.php (52)
 in /var/www/cp/docs/protected/controllers/SiteController.php (94)
+2012/10/03 17:40:13 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/cp/yii/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /var/www/cp/yii/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/cp/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/cp/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /var/www/cp/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/cp/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/cp/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /var/www/cp/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/cp/yii/framework/web/CWebApplication.php(283): CController->run('admin')
+#8 /var/www/cp/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('user/admin')
+#9 /var/www/cp/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /var/www/cp/docs/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/user/admin
+HTTP_REFERER=http://cp.volgocom.ru/site/login
+---
+2012/10/03 17:40:29 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/cp/yii/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /var/www/cp/yii/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/cp/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/cp/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /var/www/cp/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/cp/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/cp/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /var/www/cp/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/cp/yii/framework/web/CWebApplication.php(283): CController->run('admin')
+#8 /var/www/cp/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('user/admin')
+#9 /var/www/cp/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /var/www/cp/docs/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/user/admin
+HTTP_REFERER=http://cp.volgocom.ru/site/login
+---
+2012/10/03 17:41:11 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /var/www/cp/yii/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /var/www/cp/yii/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /var/www/cp/yii/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /var/www/cp/yii/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /var/www/cp/yii/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /var/www/cp/yii/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /var/www/cp/yii/framework/web/CController.php(292): CFilterChain->run()
+#6 /var/www/cp/yii/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/cp/yii/framework/web/CWebApplication.php(283): CController->run('admin')
+#8 /var/www/cp/yii/framework/web/CWebApplication.php(142): CWebApplication->runController('user/admin')
+#9 /var/www/cp/yii/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /var/www/cp/docs/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/user/admin
+HTTP_REFERER=http://cp.volgocom.ru/user/create
+---
