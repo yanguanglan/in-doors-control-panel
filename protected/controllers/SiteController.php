@@ -2,6 +2,14 @@
 
 class SiteController extends Controller
 {
+
+	public function filters()
+	{
+		return array(
+			'accessControl'
+		);
+	}
+
 	/**
 	 * Declares class-based actions.
 	 */
@@ -17,6 +25,27 @@ class SiteController extends Controller
 			// They can be accessed via: index.php?r=site/page&view=FileName
 			'page'=>array(
 				'class'=>'CViewAction',
+			),
+		);
+	}
+
+	public function accessRules()
+	{
+		return array(
+			array('allow',
+				'actions'=>array('login', 'logout', 'error', 'captcha'),
+				'users'=>array('*'),
+			),
+			array('allow',
+				'actions'=>array('index', 'page'),
+				'users'=>array('@'),
+			),
+			array('allow',
+				'actions'=>array('contact'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
 			),
 		);
 	}
@@ -39,37 +68,14 @@ class SiteController extends Controller
 	{
 		if($error=Yii::app()->errorHandler->error)
 		{
+      $ip = Yii::app()->request->getUserHostAddress();
+      $requestUri = Yii::app()->request->getRequestUri();
+      Yii::log('Ошибка '.$error['code'].': '.$error['message']."\n IP: ".$ip."\n Запрос: ".$requestUri, 'error', 'volgocom.site.error');
 			if(Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
 				$this->render('error', $error);
 		}
-	}
-
-	/**
-	 * Displays the contact page
-	 */
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
 	}
 
 	/**
@@ -91,8 +97,22 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if($model->validate() && $model->login()) {
+        $ip = Yii::app()->request->getUserHostAddress();
+        Yii::log("Вошёл в систему\n IP: ".$ip, 'info', 'volgocom.site.login');
 				$this->redirect(Yii::app()->user->returnUrl);
+      }
+      else {
+        Yii::log(
+          sprintf(
+            "Неудавшаяся попытка входа\n username: %s\n password: %s",
+            $_POST['LoginForm']['username'],
+            $_POST['LoginForm']['password']
+          ),
+          'warning',
+          'volgocom.site.login'
+        );
+      }
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
@@ -103,6 +123,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogout()
 	{
+    Yii::log('Вышел из системы', 'info', 'volgocom.site.logout');
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}

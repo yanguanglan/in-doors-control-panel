@@ -26,7 +26,7 @@ class User extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_user';
+		return 'User';
 	}
 
 	/**
@@ -63,9 +63,9 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'email' => 'Email',
+			'username' => 'Имя пользователя',
+			'password' => 'Пароль',
+			'email' => 'e-mail',
 		);
 	}
 
@@ -89,4 +89,12 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+  
+  public function beforeSave()
+  {
+    parent::beforeSave();
+    $this->password = md5($this->password);
+    return true;
+  }
+
 }
