@@ -40,9 +40,15 @@ class SitelogController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('SiteLog');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+    $model = new SiteLog('search');
+    $model->unsetAttributes();
+
+    if(isset($_GET['SiteLog'])) {
+			$model->attributes = $_GET['SiteLog'];
+    }
+
+    $this->render('index',array(
+			'model'=>$model,
 		));
 	}
 
